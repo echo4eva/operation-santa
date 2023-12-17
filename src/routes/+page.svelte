@@ -1,4 +1,8 @@
 <script>
+    import { goto } from "$app/navigation";
+    import { redirect } from "@sveltejs/kit";
+
+    // interactions with combo input
     function numTree(e) {
         // prevent applying more than 1 number
         if (e.target.value.length > e.target.maxLength) {
@@ -21,10 +25,34 @@
             return
         }
     }
+
+    let form
+
+    async function submitCombo(event) {
+        const formEl = event.target
+        const data = new FormData(formEl)
+
+        const response = await fetch(formEl.action, {
+            method: "POST",
+            body: data
+        })
+
+        const responseData = await response.json()
+        console.log(responseData)
+        form = responseData
+
+        formEl.reset()
+
+        if (form.success == true) {
+            goto("/gift")
+        }   
+    }
 </script>
 
 <div class="flex flex-col min-h-screen justify-center items-center">
-    <form method="POST">
+    <form on:submit|preventDefault={submitCombo} 
+        method="POST"
+    >
         <div class="flex flex-row gap-4"> 
             <input type="number" name="i1" on:input={numTree} maxlength="1" />
             <input type="number" name= "i2" on:input={numTree} maxlength="1" />
