@@ -53,7 +53,7 @@
     <form on:submit|preventDefault={submitCombo} 
         method="POST"
     >
-        <div class="flex flex-row gap-4"> 
+        <div class="flex flex-row gap-2"> 
             <input type="number" name="i1" on:input={numTree} maxlength="1" />
             <input type="number" name= "i2" on:input={numTree} maxlength="1" />
             <input type="number" name="i3" on:input={numTree} maxlength="1" />
@@ -71,10 +71,18 @@
         border-radius: 10px;
         width: 2rem;
         text-align: center;
-        height: 80px;
-        width: 80px;
+        height: 100px;
+        width: 100px;
         font-size: 30px;
     }
+    
+    @media screen and (max-width: 400px) {
+        input {
+            height: 60px;
+            width: 60px;
+        }
+    }
+
 
     input:focus {
         outline: 1px solid rgb(244 114 182);
